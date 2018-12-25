@@ -127,10 +127,15 @@ const theme = createMuiTheme(
 
 Amplify.configure({
     Auth: {
-        mandatorySignIn: true,
+        mandatorySignIn: false,
         region: config.cognito.REGION,
         userPoolId: config.cognito.USER_POOL_ID,
-        userPoolWebClientId: config.cognito.APP_CLIENT_ID
+        userPoolWebClientId: config.cognito.APP_CLIENT_ID,
+        cookieStorage: {
+            domain: config.cognito.COOKIE_DOMAIN,
+            expires: config.cognito.COOKIE_EXP_DURATION,
+            secure: true
+        },
     }
 });
 
