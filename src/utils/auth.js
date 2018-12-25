@@ -1,4 +1,12 @@
 import { Auth } from 'aws-amplify';
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
+import config from '../config/aws';
+
+
+const _poolData = {
+    UserPoolId: config.cognito.USER_POOL_ID,
+    ClientId: config.cognito.APP_CLIENT_ID
+}
 
 const createUser = (username, password) => {
     // TODO use aws sdk to use admincreateuser
