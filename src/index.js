@@ -1,10 +1,12 @@
 import Amplify from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import config from './config/aws';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { colorPalette, size, fontFamily } from './themeconfig';
+import auth from './utils/auth';
 
 const rootEl = document.getElementById('root');
 
@@ -131,13 +133,10 @@ Amplify.configure({
         region: config.cognito.REGION,
         userPoolId: config.cognito.USER_POOL_ID,
         userPoolWebClientId: config.cognito.APP_CLIENT_ID,
-        cookieStorage: {
-            domain: config.cognito.COOKIE_DOMAIN,
-            expires: config.cognito.COOKIE_EXP_DURATION,
-            secure: true
-        },
     }
 });
+
+const user = auth.logIn('testadmin', 'TestAdmin15@wesome')
 
 let render = () => {
     const MainApp = require('./MainApp').default;
