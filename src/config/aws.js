@@ -9,5 +9,11 @@ export default {
         APP_CLIENT_ID: '549v9710l5hdbqqnjhokpods0t',
         COOKIE_EXP_DURATION: 30,
         COOKIE_DOMAIN: `.${appConfig.DOMAIN}`
-    }
+    },
+    api: [
+        {
+            name: "management",
+            endpoint: "https://jmf40o6ho9.execute-api.ap-southeast-1.amazonaws.com/dev"
+        }
+    ]
 };
