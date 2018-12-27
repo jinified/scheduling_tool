@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
 import config from '../config/aws';
 import AWS from 'aws-sdk';
 
@@ -45,6 +45,14 @@ const logIn = async (username, password) => {
                 if(err) {
                     console.log(err)
                 } else {
+                    API.get('management', '/user', {
+                        response: true,
+                        headers: {
+                            Authorization: user.signInUserSession.idToken.jwtToken
+                        }
+                    })
+                        .then(res => console.log(res))
+                        .catch(err => console.log(err))
                     return user
                 }
             })
