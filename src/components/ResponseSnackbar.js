@@ -61,7 +61,7 @@ class ResponseSnackbar extends Component{
 					anchorOrigin={{  vertical:'top', horizontal:'right' }}
 					open={this.props.responseSnackbar.isOpen}
 					onClose={this.handleClose}
-					autoHideDuration={1000}
+					autoHideDuration={3000}
 					ContentProps={{
 						'aria-describedby': 'message-id',
 					}}				

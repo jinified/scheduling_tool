@@ -29,7 +29,8 @@ const INIT_STATE = {
 	sessionToken: "NULL",
 	idToken: "NULL",
 	listUser: {},
-	isLoggedIn: false
+	isLoggedIn: false,
+	status: 0,
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -81,6 +82,12 @@ export default (state=INIT_STATE, action)=>{
 				username: action.payload.pK,
 				email: action.payload.pK+"@astro.com.my",
 				accesslevel: action.payload.role
+			}
+
+		case UPDATE_USER_SUCCESS:
+			return{
+				...state,
+				updateuserresponse: action.payload.data
 			}
 
 		default:

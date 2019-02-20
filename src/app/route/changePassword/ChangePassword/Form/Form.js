@@ -10,6 +10,8 @@ import {
     logOutUser
 } from '../../../../../actions/index';
 
+import {Redirect} from 'react-router-dom'
+
 
 
 
@@ -64,6 +66,7 @@ class Form extends Component {
       passwordlold:'',
       password_confirmation: '',
       validation: this.validator.valid(),
+      toRefresh:false
     }
 
     this.submitted = false;
@@ -93,13 +96,11 @@ class Form extends Component {
   passwordMatch = (confirmation, state) => (state.password === confirmation)
 
   handleInputChange = event => {
-    event.preventDefault();
+    // event.preventDefault();
 
     this.setState({
       [event.target.name]: event.target.value,
     });
-
-    console.log ([event.target.name] +':' +event.target.value)
   }
 
   handleFormSubmit = event => {
@@ -110,14 +111,15 @@ class Form extends Component {
     this.submitted = true;
 
     if (validation.isValid) {
-      console.log("Submitted")
       // this.props.logOutUser()
       this.props.changePassword({
           username: this.props.username,
           oldPassword: this.state.passwordold,
           newPassword: this.state.password
       })
+      this.state.toRefresh=true;
     }
+    
   }
 
 
@@ -127,56 +129,65 @@ class Form extends Component {
                       this.validator.validate(this.state) :   // then check validity every time we render
                       this.state.validation                   // otherwise just use what's in state
 
-    return (
-      <form className="demoForm">
+    
+    let toShow = (
+    <form className="demoForm">
+    <div>
+      <div className={validation.passwordold.isInvalid && 'has-error'}>
 
-        <div className={validation.passwordold.isInvalid && 'has-error'}>
-
-          <TextField type="text" className="form-control"
-            name="passwordold"
-            variant="outlined"
-            label="Old Password"
-            onChange={this.handleInputChange}
-            error={validation.passwordold.message}
-          />
-          <br />
-          <span className="help-block">{validation.passwordold.message}</span>
+        <TextField type="password" className="form-control"
+          name="passwordold"
+          variant="outlined"
+          label="Old Password"
+          onChange={this.handleInputChange}
+          error={validation.passwordold.message}
+        />
+        <br />
+        <span className="help-block">{validation.passwordold.message}</span>
         </div>
 
         <div className={validation.password.isInvalid && 'has-error'}>
 
-          <TextField type="text" className="form-control"
-            label="New Password"
-            name="password"
-            variant="outlined"
-            onChange={this.handleInputChange}
-            style={{marginTop:"25px"}}
-            error={validation.password.message}
-          />
-          <br />
-          <span className="help-block" >{validation.password.message}</span>
+        <TextField type="password" className="form-control"
+          label="New Password"
+          name="password"
+          variant="outlined"
+          onChange={this.handleInputChange}
+          style={{marginTop:"25px"}}
+          error={validation.password.message}
+        />
+        <br />
+        <span className="help-block" >{validation.password.message}</span>
         </div>
 
         <div className={validation.password_confirmation.isInvalid && 'has-error'}>
 
-          <TextField type="text" className="form-control"
-            label="Re-Type New Password"
-            name="password_confirmation"
-            variant="outlined"
-            onChange={this.handleInputChange}
-            style={{marginTop:"25px"}}
-            error={validation.password_confirmation.message}
-          />
-          <br />
-          <Typography className="help-block">{validation.password_confirmation.message}</Typography>
+        <TextField type="password" className="form-control"
+          label="Re-Type New Password"
+          name="password_confirmation"
+          variant="outlined"
+          onChange={this.handleInputChange}
+          style={{marginTop:"25px"}}
+          error={validation.password_confirmation.message}
+        />
+        <br />
+        <Typography className="help-block">{validation.password_confirmation.message}</Typography>
         </div>
         <br/>
 
-        < Button color="primary" variant= "contained" onClick={this.handleFormSubmit} className="btn btn-primary">
-          Change
+        < Button type="submit" color="primary" variant= "contained" onClick={this.handleFormSubmit} className="btn btn-primary">
+        Change
         </Button>
-      </form>
-    )
+    </div>
+
+    
+    </form>
+  )
+
+    if (this.state.toRefresh) {
+      toShow=<Redirect to='/schedule' />
+    } 
+    return toShow
   }
 }
 

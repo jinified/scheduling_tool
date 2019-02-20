@@ -297,7 +297,7 @@ class Department extends Component {
     ];
     const rotationValues = [
       this.state.name,
-      this.state.duration + (this.state.duration > 1 ? " weeks" : " week"),
+      this.state.duration + (this.state.duration > 1 ? " months" : " month"),
       this.state.championName,
       this.state.championEmail,
       this.state.capacity + (this.props.capacity > 1 ? " protégés" : " protégé"),
@@ -306,14 +306,14 @@ class Department extends Component {
     ];
     const placeholderValues = [
       this.state.name,
-      this.state.duration === "undefined" ? 0 : this.state.duration,
+      this.state.duration,
       this.state.championName,
       this.state.championEmail,
-      this.state.capacity === "undefined" ? 0 : this.state.capacity,
+      this.state.capacity,
       this.state.category,
       this.state.pK
     ];
-    const endAdornment = ["", "week(s)", "", "", "protégé(s)","","",""];
+    const endAdornment = ["", "month(s)", "", "", "protégé(s)","","",""];
     const fieldType = ["text", "number", "text", "text", "number","text","text","text"];
     const rotationNames = [
       "updatedDepartmentName",
@@ -386,9 +386,8 @@ class Department extends Component {
         <div>
           {rotationHeaders.map((header, index) => {
             return (
-              <div>
 
-              <div key={index}>
+              <div key={header + index}>
                 <p
                   className={`${
                     this.state.mode === 1 || this.state.mode === 2
@@ -417,7 +416,7 @@ class Department extends Component {
                       "aria-label": header
                       // "aria-label": "Department Name"
                     }}
-                    placeholder={placeholderValues[index]}
+                    placeholder={placeholderValues[index] ? `${placeholderValues[index]}`: ''}
                     value={updatedRotationValues[index]}
                     endAdornment={
                       <InputAdornment position="end">
@@ -431,7 +430,6 @@ class Department extends Component {
                     onChange={this.handleInputChange.bind(this)}
                   />
                 </div>
-              </div>
               </div>
             );
           })}

@@ -70,9 +70,10 @@ export const updateUser = (userid, data) => {
 	}
 }
 
-export const updateUserSuccess = () => {
+export const updateUserSuccess = (data) => {
 	return {
-		type: UPDATE_USER_SUCCESS
+		type: UPDATE_USER_SUCCESS,
+		payload: {data}
 	}
 } 
 

@@ -3,7 +3,7 @@ import {all, call, fork, put, takeEvery, flush} from 'redux-saga/effects';
 
 import { CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER, GET_USER, LOG_IN_USER_SUCCESS, AUTH_REQUEST } from '../constants/Actions';
 
-import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup, getUserSuccess, getUser as getUserAction, authToken, authTokenSuccess } from '../actions/index';
+import { loginUserSuccess, updateUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup, getUserSuccess, getUser as getUserAction, authToken, authTokenSuccess } from '../actions/index';
 
 import { changeUserPassword, loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser, authorize } from '../api/apicalls'
 
@@ -140,7 +140,7 @@ function* updateUserAsync({payload}) {
 	const {userid, data} = payload
 	try{
 		const response = yield call(sendUpdateUser, userid, data)
-		yield put(getUserAction(userid))
+		yield put(updateUserSuccess(response.status))
 		yield put(setResponseSnackbar({
 			isOpen: true,
 			message: "Updated User",

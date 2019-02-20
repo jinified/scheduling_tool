@@ -49,7 +49,7 @@ export const scheduleVariation = {
 			fontWeight: 'bold',
 		},
 	},
-	ongoing: {
+	ONGOING: {
 		backgroundColor: '#71DF96',
 		minWidth: '120px',
 		primary: {
@@ -57,14 +57,14 @@ export const scheduleVariation = {
 			fontWeight: 'bold',
 		}
 	},
-	pending: {
+	PENDING: {
 		minWidth: '120px',
 		primary: {
 			color: colorPalette.primary,
 			fontWeight: 'bold',
 		}
 	},
-	complete: {
+	COMPLETED: {
 		minWidth: '120px',
 		backgroundColor: '#515152',
 		color: '#B8B8BA',

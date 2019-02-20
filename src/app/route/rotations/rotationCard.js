@@ -22,7 +22,7 @@ const styles = theme => ({
     paddingLeft: 20
   },
   card: {
-    height: 540,
+    height: 560,
     padding: 20
   },
   show: {
@@ -32,7 +32,7 @@ const styles = theme => ({
     display: "none"
   },
   smallCard: {
-    height: 490,
+    height: 'auto',
     padding: 20
   }
 });

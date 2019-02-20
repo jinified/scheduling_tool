@@ -88,16 +88,32 @@ class CustomizedTable extends Component {
 		let filteredUserValue = this.filteredUser(username)
 
 		// Find current rotation object
-		let filteredEndDate = filteredUserValue.filter(f => f.endDate >= currentDate)[0]['endDate']
-
-		// Index of current rotation object
-		let index = filteredUserValue.findIndex(index => index.endDate ===filteredEndDate)
-
-		// Next rotation ID and Start Date
-		let nextRotationID = filteredUserValue[index+1].rotationId
-		let nextRotationStartDate = filteredUserValue[index+1].startDate
-
-		return [nextRotationID,nextRotationStartDate]
+		if (filteredUserValue){
+			let filteredEndDate = filteredUserValue.filter(f => f.endDate >= currentDate)[0]['endDate']	
+	
+			// Index of current rotation object
+			let index = filteredUserValue.findIndex(index => index.endDate ===filteredEndDate)
+	
+			// Next rotation ID and Start Date
+			if (filteredUserValue[index+1]){
+				let nextRotationID = filteredUserValue[index+1].rotationId
+				let nextRotationStartDate = filteredUserValue[index+1].startDate
+				return [nextRotationID,nextRotationStartDate]
+				
+			}
+			// If no next rotation info
+			else {
+				let nextRotationID = 'NIL'
+				let nextRotationStartDate = filteredEndDate
+				return [nextRotationID,nextRotationStartDate]
+			}
+		}
+		// If no username / filteredUserValue
+		else {
+			let nextRotationID = 'Error'
+			let nextRotationStartDate = 'Error'
+			return [nextRotationID, nextRotationStartDate]
+		}	
 	}
 
 	render(){
@@ -133,7 +149,7 @@ class CustomizedTable extends Component {
 									<TableCell component="th" scope="row">{row.pK}</TableCell>
 									<TableCell>{row.displayName}</TableCell>
 									<TableCell>{row.joinDate}</TableCell>
-									<TableCell>{this.findNextRotation(row.pK)[0]}</TableCell>
+									<TableCell className={this.findNextRotation(row.pK)[0]===('NIL'||'ERROR') ? classes.redText: ''}>{this.findNextRotation(row.pK)[0]}</TableCell>
 									<TableCell className={days_to_start > 10 ? '' : classes.redText}>{this.findNextRotation(row.pK)[1]}</TableCell>
 									<TableCell className={days_to_start > 10 ? '' : classes.redText}>{starting_in}</TableCell>
 								</TableRow>

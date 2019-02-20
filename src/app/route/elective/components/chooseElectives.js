@@ -37,7 +37,7 @@ class ChooseElectives extends Component {
                 this.setState({monthsLeft: this.state.monthsLeft - event.duration})
             }
             else{
-                    this.props.setNotificationSnackbar({isOpen: true, message:(<span>You have not enough credit to choose the module. Please deselect some to release more credits.</span>)})
+                    this.props.setNotificationSnackbar({isOpen: true, message:(<span>You have not enough credit to choose the module. Please unselect some to release more credits.</span>)})
             }
 		} else {
 			this.setState({monthsLeft: parseInt(event.duration, 10) + this.state.monthsLeft})
@@ -76,7 +76,7 @@ class ChooseElectives extends Component {
                 <span>{this.state.monthsLeft}</span>
                 </Typography>
             </div>
-            <div style={{textAlign: 'left', paddingTop: '50px'}}>
+            <div style={{textAlign: 'left', paddingTop: '50px'}} >
                 <FormControl>
                     <FormLabel>
                         <FormGroup column>
